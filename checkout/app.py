@@ -16,8 +16,13 @@ class DecimalEncoder(json.JSONEncoder):
             else:
                 return int(o)
         return super(DecimalEncoder, self).default(o)
-        
+
 app = Flask(__name__)
+@app.route('/status', methods=['GET'])
+def status():
+    successmessage={"status": 200}
+    return(successmessage)
+        
 @app.route('/api/v1.0/checkout', methods=['POST'])
 def checkout():
     iop={"cart":[
