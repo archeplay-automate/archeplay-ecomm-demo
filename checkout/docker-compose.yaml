@@ -1,0 +1,19 @@
+---
+version: "3.7"
+services:
+  product-api:
+    build:
+      context: .
+    image: product
+    environment:
+      AWS_REGION: REGIONNAME
+      CHECKOUT_TABLE_NAME: CHECKOUTTABLENAME
+  product-proxy:
+    build:
+      context: ./nginx
+    image: productproxy
+    ports:
+      - "80:80"
+    environment:
+      AWS_REGION: REGIONNAME
+      CHECKOUT_TABLE_NAME: CHECKOUTTABLENAME
