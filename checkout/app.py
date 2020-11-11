@@ -1,11 +1,11 @@
 from flask import Flask, jsonify
 from flask import request
 import sys,os,boto3
+from boto3 import session
 import logging,json
-import pymysql, base64
+import base64
 import random,string
 import hashlib,uuid,datetime
-
 import decimal
 
 class DecimalEncoder(json.JSONEncoder):
