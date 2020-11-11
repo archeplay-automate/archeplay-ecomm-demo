@@ -1,17 +1,17 @@
 ---
 version: "3.7"
 services:
-  product-api:
+  checkout-api:
     build:
       context: .
-    image: product
+    image: checkout
     environment:
       AWS_REGION: REGIONNAME
       CHECKOUT_TABLE_NAME: CHECKOUTTABLENAME
-  product-proxy:
+  checkout-proxy:
     build:
       context: ./nginx
-    image: productproxy
+    image: checkoutproxy
     ports:
       - "80:80"
     environment:
