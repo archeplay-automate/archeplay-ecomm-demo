@@ -1,11 +1,9 @@
 # pull official base image
-FROM python:3.8.1-slim-buster
-
-# create directory for the app user
-RUN mkdir -p /home/app
+FROM amazonlinux
 
 # create the app user
-RUN addgroup --system app && adduser --system --ingroup app app
+RUN yum -y install shadow-utils.x86_64 util-linux python3 python3-pip
+RUN useradd -m -d /home/app -G root app
 
 # create the appropriate directories
 ENV HOME=/home/app
@@ -14,13 +12,11 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 # install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends netcat
 COPY requirements.txt .
-RUN pip install --upgrade pip -r requirements.txt
+RUN pip3 install --upgrade pip -r requirements.txt
 
 COPY app.py $APP_HOME
 COPY wsgi.py $APP_HOME
-
 
 # chown all the files to the app user
 RUN chown -R app:app $APP_HOME
